@@ -1,8 +1,10 @@
 import Tictactoe.*
-import scala.io.StdIn.readLine
+import cats.effect.{IO, IOApp}
+import cats.data.EitherT
+import cats.syntax.all._
 
-@main def main(): Unit =
-    println("Welcome to Tic Tac Toe")
+object Main extends IOApp.Simple:
+    val welcomeMsg = IO.println("Welcome to Tic Tac Toe")
     val firstRound = Turn()
 
     val rowMapping = Map(
@@ -16,48 +18,48 @@ import scala.io.StdIn.readLine
       "1" -> ColPosition.Center,
       "2" -> ColPosition.Right
     )
-
-    gameLoop(firstRound, rowMapping, colMapping)
+    val run = welcomeMsg >> gameLoop(firstRound, rowMapping, colMapping)
 
 def gameLoop(
     gameRound: Turn,
     rowMapping: Map[String, RowPosition],
     colMapping: Map[String, ColPosition]
-): Unit =
+): IO[Unit] =
     val currentPlayer = gameRound.currentPlayer
+    val rowMsg = s"Choose your row player: $currentPlayer. 0 1 2"
+    val colMsg = s"Choose your column player: $currentPlayer. 0 1 2"
 
-    println(s"Current player: $currentPlayer")
-    println(gameRound.gameBoard)
+    def determineNextTurn(nextTurn: Turn, outcome: Outcome): IO[Unit] =
+        (nextTurn, outcome) match
+            case (updatedRound, Outcome.Ongoing) =>
+                gameLoop(updatedRound, rowMapping, colMapping)
 
-    val rowPrompt = s"Choose your row player: $currentPlayer. 0 1 2"
-    val colPrompt = s"Choose your column player: $currentPlayer. 0 1 2"
+            case (_, Outcome.Win) =>
+                IO.println(s"Player $currentPlayer wins!")
 
-    val row = getTargetPosition(rowPrompt, rowMapping)
-    val col = getTargetPosition(colPrompt, colMapping)
+            case (_, Outcome.Draw) =>
+                IO.println("The match ended in a draw!")
 
-    val attemptedMove = gameRound.playerMove(row, col)
+    val attemptedMove = EitherT(
+      for
+          _ <- IO.println(s"Current player: $currentPlayer")
+          _ <- IO.println(gameRound.gameBoard)
+          row <- IO.println(rowMsg) >> getTargetPosition(rowMapping)
+          col <- IO.println(colMsg) >> getTargetPosition(colMapping)
+      yield (gameRound.playerMove(row, col))
+    )
+    attemptedMove.foldF(
+      left => IO.println(left) >> gameLoop(gameRound, rowMapping, colMapping),
+      (nextTurn: Turn, outcome: Outcome) => determineNextTurn(nextTurn, outcome)
+    )
 
-    attemptedMove match
+def getTargetPosition[T](mapping: Map[String, T]): IO[T] =
+    def onError(input: String): IO[T] =
+        IO.println(s"Invalid input: $input, try again.") >> askUser
 
-        case Right((updatedRound, Outcome.Ongoing)) =>
-            gameLoop(updatedRound, rowMapping, colMapping)
+    def askUser: IO[T] = for
+        input <- IO.readLine
+        position <- mapping.get(input).fold(onError(input))(IO.pure(_))
+    yield position
 
-        case Right((_, Outcome.Win)) =>
-            println(s"Player $currentPlayer wins!")
-
-        case Right((_, Outcome.Draw)) =>
-            println("The match ended in a draw!")
-
-        case Left(error) =>
-            println(error)
-            gameLoop(gameRound, rowMapping, colMapping)
-
-def getTargetPosition[T](prompt: String, mapping: Map[String, T]): T =
-    println(prompt)
-    val userInput = readLine()
-
-    mapping.get(userInput) match
-        case Some(position) => position
-        case None =>
-            println(s"Invalid input: $userInput, try again.")
-            getTargetPosition(prompt, mapping)
+    askUser
