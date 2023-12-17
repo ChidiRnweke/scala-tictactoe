@@ -121,6 +121,5 @@ case class Turn(currentPlayer: Tile = Tile.X, gameBoard: Board = Board()):
 
             case _ => Left("You can only set a value on an empty tile.")
 
-    private val nextPlayer: Tile = currentPlayer match
-        case Tile.X => Tile.O
-        case Tile.O => Tile.X
+    private val nextPlayer: Tile =
+        if (currentPlayer == Tile.X) Tile.O else Tile.X
