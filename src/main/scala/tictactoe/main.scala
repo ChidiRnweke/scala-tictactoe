@@ -34,11 +34,9 @@ def gameLoop(
             case (updatedRound, Outcome.Ongoing) =>
                 gameLoop(updatedRound, rowMapping, colMapping)
 
-            case (_, Outcome.Win) =>
-                IO.println(s"Player $currentPlayer wins!")
+            case (_, Outcome.Win) => IO.println(s"Player $currentPlayer wins!")
 
-            case (_, Outcome.Draw) =>
-                IO.println("The match ended in a draw!")
+            case (_, Outcome.Draw) => IO.println("The match ended in a draw!")
 
     val attemptedMove = EitherT(
       for
@@ -49,7 +47,7 @@ def gameLoop(
       yield (gameRound.playerMove(row, col))
     )
     attemptedMove.foldF(
-      left => IO.println(left) >> gameLoop(gameRound, rowMapping, colMapping),
+      error => IO.println(error) >> gameLoop(gameRound, rowMapping, colMapping),
       (nextTurn: Turn, outcome: Outcome) => determineNextTurn(nextTurn, outcome)
     )
 
