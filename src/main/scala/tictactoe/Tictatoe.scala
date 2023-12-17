@@ -50,10 +50,11 @@ case class Board(
         centerVertical.isComplete ||
         rightVertical.isComplete
 
-    override def toString: String = "2 " + topRow.toString + "\n" +
-        "1 " + middleRow.toString + "\n" +
-        "0 " + bottomRow.toString + "\n" +
-        "   0 " + "1 " + "2 " // necessary to print
+    override def toString: String =
+        s"""2 ${topRow.toString}
+           |1 ${middleRow.toString}
+           |0 ${bottomRow.toString}
+           | 0  1  2""".stripMargin
 
     private lazy val diagonalOne: Row =
         Row(topRow.left, middleRow.center, bottomRow.right)
