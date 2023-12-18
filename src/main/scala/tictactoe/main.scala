@@ -31,7 +31,7 @@ def gameLoop(
     def nextTurn(next: Turn): IO[Unit] = gameLoop(next, rowMapping, colMapping)
     def restartTurn(err: String) = IO.println(err) >> nextTurn(currentTurn)
 
-    def determineNextTurn(matchTurn: Tuple2[Turn, Outcome]): IO[Unit] =
+    def nextTurnOrEnd(matchTurn: Tuple2[Turn, Outcome]): IO[Unit] =
         matchTurn match
             case (next, Outcome.Ongoing) => nextTurn(next)
             case (_, Outcome.Win)  => IO.println(s"Player $currentPlayer wins!")
@@ -45,7 +45,7 @@ def gameLoop(
           col <- IO.println(colMsg) >> getTargetPosition(colMapping)
       yield (currentTurn.playerMove(row, col))
     )
-    attemptedMove.foldF(restartTurn(_), determineNextTurn(_))
+    attemptedMove.foldF(restartTurn(_), nextTurnOrEnd(_))
 
 def getTargetPosition[T](mapping: Map[String, T]): IO[T] =
     def askAgain(invalidInput: String): IO[T] =
