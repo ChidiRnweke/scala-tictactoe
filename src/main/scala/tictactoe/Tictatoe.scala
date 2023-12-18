@@ -54,7 +54,7 @@ case class Board(
         s"""2 ${topRow.toString}
            |1 ${middleRow.toString}
            |0 ${bottomRow.toString}
-           | 0  1  2""".stripMargin
+           |   0 1 2""".stripMargin
 
     private lazy val diagonalOne: Row =
         Row(topRow.left, middleRow.center, bottomRow.right)
