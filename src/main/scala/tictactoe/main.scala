@@ -41,13 +41,13 @@ def gameLoop(
       for
           _ <- IO.println(s"Current player: $currentPlayer")
           _ <- IO.println(currentTurn.gameBoard)
-          row <- IO.println(rowMsg) >> getTargetPosition(rowMapping)
-          col <- IO.println(colMsg) >> getTargetPosition(colMapping)
+          row <- IO.println(rowMsg) >> getBoardPosition(rowMapping)
+          col <- IO.println(colMsg) >> getBoardPosition(colMapping)
       yield (currentTurn.playerMove(row, col))
     )
     attemptedMove.foldF(restartTurn(_), nextTurnOrEnd(_))
 
-def getTargetPosition[T](mapping: Map[String, T]): IO[T] =
+def getBoardPosition[T](mapping: Map[String, T]): IO[T] =
     def askAgain(invalidInput: String): IO[T] =
         IO.println(s"Invalid input: $invalidInput, try again.") >> askUser
     def askUser: IO[T] = for
