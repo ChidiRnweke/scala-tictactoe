@@ -49,7 +49,9 @@ def gameLoop(
 
 def getBoardPosition[T](mapping: Map[String, T]): IO[T] =
     def askAgain(invalidInput: String): IO[T] =
-        IO.println(s"Invalid input: $invalidInput, try again.") >> askUser
+        val errorMsg = s"Invalid input: $invalidInput, try again."
+        IO.println(errorMsg) >> askUser
+
     def askUser: IO[T] = for
         input <- IO.readLine
         position <- mapping.get(input).fold(askAgain(input))(IO.pure(_))
