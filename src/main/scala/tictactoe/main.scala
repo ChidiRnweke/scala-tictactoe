@@ -1,6 +1,5 @@
 import Tictactoe.*
 import cats.effect.{IO, IOApp}
-import cats.data.EitherT
 import cats.syntax.all._
 
 object Main extends IOApp.Simple:
@@ -37,15 +36,15 @@ def gameLoop(
             case (_, Outcome.Win)  => IO.println(s"Player $currentPlayer wins!")
             case (_, Outcome.Draw) => IO.println("The match ended in a draw!")
 
-    val attemptedMove = EitherT(
-      for
-          _ <- IO.println(s"Current player: $currentPlayer")
-          _ <- IO.println(currentTurn.gameBoard)
-          row <- IO.println(rowMsg) >> getBoardPosition(rowMapping)
-          col <- IO.println(colMsg) >> getBoardPosition(colMapping)
-      yield (currentTurn.playerMove(row, col))
-    )
-    attemptedMove.foldF(restartTurn(_), nextTurnOrEnd(_))
+    val attemptedMove =
+        for
+            _ <- IO.println(s"Current player: $currentPlayer")
+            _ <- IO.println(currentTurn.gameBoard)
+            row <- IO.println(rowMsg) >> getBoardPosition(rowMapping)
+            col <- IO.println(colMsg) >> getBoardPosition(colMapping)
+        yield (currentTurn.playerMove(row, col))
+
+    attemptedMove.map(attempt => attempt.fold(restartTurn(_), nextTurnOrEnd(_)))
 
 def getBoardPosition[T](mapping: Map[String, T]): IO[T] =
     def askAgain(invalidInput: String): IO[T] =
