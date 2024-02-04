@@ -20,8 +20,9 @@ lazy val tictactoe = crossProject(JSPlatform, JVMPlatform)
       libraryDependencies += "org.scala-lang" %%% "toolkit-test" % "0.1.7" % Test
     )
     .jvmSettings(
+      libraryDependencies += "org.typelevel" %% "cats-effect" % "3.5.2",
       Compile / run / fork := true,
-      libraryDependencies += "org.typelevel" %% "cats-effect" % "3.5.2"
+      run / connectInput := true
     )
     .jsSettings(
       scalaJSUseMainModuleInitializer := true
