@@ -44,7 +44,7 @@ def gameLoop(
             col <- IO.println(colMsg) >> getBoardPosition(colMapping)
         yield (currentTurn.playerMove(row, col))
 
-    attemptedMove.map(attempt => attempt.fold(restartTurn(_), nextTurnOrEnd(_)))
+    attemptedMove.flatMap(a => a.fold(restartTurn(_), nextTurnOrEnd(_)))
 
 def getBoardPosition[T](mapping: Map[String, T]): IO[T] =
     def askAgain(invalidInput: String): IO[T] =
