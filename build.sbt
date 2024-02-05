@@ -43,6 +43,5 @@ lazy val tictactoe = crossProject(JSPlatform, JVMPlatform, NativePlatform)
           _.withLTO(LTO.thin)
               .withMode(Mode.releaseFast)
               .withGC(GC.commix)
-      },
-      Compile / unmanagedSourceDirectories += baseDirectory.value / "jvm" / "src" / "main" / "scala" / "tictactoe"
+      }
     )
