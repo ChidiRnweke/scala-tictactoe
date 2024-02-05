@@ -1,5 +1,7 @@
+import org.scalajs.linker.interface.ModuleSplitStyle
+
 ThisBuild / scalaVersion := "3.3.0"
-ThisBuild / organization := "com.chidiNweke"
+ThisBuild / organization := "io.github.chidirnweke"
 
 lazy val root = project
     .in(file("."))
@@ -25,5 +27,14 @@ lazy val tictactoe = crossProject(JSPlatform, JVMPlatform)
       run / connectInput := true
     )
     .jsSettings(
-      scalaJSUseMainModuleInitializer := true
+      scalaJSLinkerConfig ~= {
+
+          _.withModuleKind(ModuleKind.ESModule)
+              .withModuleSplitStyle(
+                ModuleSplitStyle.SmallModulesFor(List("tictactoe"))
+              )
+
+      },
+      libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
+      libraryDependencies += "org.scalablytyped" %%% "scala-tictactoe" % "1.0.0-01dd59"
     )

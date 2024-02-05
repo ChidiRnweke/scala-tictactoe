@@ -1,0 +1,21 @@
+{
+  "name": "scala-tictactoe",
+  "version": "1.0.0",
+  "description": "Welcome to a simple implementation of the classic game, Tic Tac Toe, written in Scala 3.",
+  "dependencies": {
+    "esbuild": "^0.19.12"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.9.6",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC"
+}
