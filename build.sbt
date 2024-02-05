@@ -36,5 +36,5 @@ lazy val tictactoe = crossProject(JSPlatform, JVMPlatform)
 
       },
       libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
-      libraryDependencies += "org.scalablytyped" %%% "scala-tictactoe" % "1.0.0-01dd59"
+      libraryDependencies += "org.scalablytyped" %%% "scala-tictactoe" % "1.0.0-ea970c"
     )

@@ -1,6 +1,6 @@
 import scala.scalajs.js.annotation._
 import TictactoeBridge._
-import typings.scalaTictactoe.{distInterfaceMod as JSInterface}
+import typings.scalaTictactoe.{distBridgeMod as JSInterface}
 import Tictactoe._
 
 @JSExportTopLevel("Game")

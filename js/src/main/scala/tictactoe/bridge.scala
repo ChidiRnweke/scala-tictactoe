@@ -1,6 +1,6 @@
 package TictactoeBridge
 
-import typings.scalaTictactoe.{distInterfaceMod as JSInterface}
+import typings.scalaTictactoe.{distBridgeMod as JSInterface}
 import scala.scalajs.js
 
 import Tictactoe._
