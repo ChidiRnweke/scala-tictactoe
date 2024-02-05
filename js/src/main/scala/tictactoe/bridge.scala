@@ -118,7 +118,7 @@ object TurnInfoBridge:
 object MoveResponseBridge:
     import JSInterface.{MoveResponse}
 
-    def tojS(scala: Either[String, Tuple2[Turn, Outcome]]): MoveResponse =
+    def toJS(scala: Either[String, Tuple2[Turn, Outcome]]): MoveResponse =
         scala match
             case Left(err)  => MoveResponse(err, false)
             case Right(res) => MoveResponse(TurnInfoBridge.toJS(res), true)

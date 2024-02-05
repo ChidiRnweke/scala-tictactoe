@@ -16,7 +16,7 @@ object Game:
         val col = ColPositionBridge.toScala(targetCol)
         val currentTurn = TurnBridge.toScala(player, turn)
         val attemptedMove = currentTurn.playerMove(row, col)
-        MoveResponseBridge.tojS(attemptedMove)
+        MoveResponseBridge.toJS(attemptedMove)
     @JSExport
     def startGame: JSInterface.Turn =
         TurnBridge.toJS(Turn())
