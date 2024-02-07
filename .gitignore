@@ -68,3 +68,4 @@ dist-ssr
 *.sw?
 out/
 index.html
+js/src/main/typescript/tictactoeGame.js
