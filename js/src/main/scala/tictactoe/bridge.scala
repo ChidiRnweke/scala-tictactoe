@@ -11,7 +11,7 @@ object TileBridge:
         jsTile match
             case SJSTile.Empty => Tile.Empty
             case SJSTile.O     => Tile.O
-            case SJSTile.X     => Tile.O
+            case SJSTile.X     => Tile.X
 
     def toJS(tile: Tictactoe.Tile): SJSTile =
         tile match
@@ -30,7 +30,7 @@ object RowPositionBridge:
 
     def toJS(jsRowPos: Tictactoe.RowPosition): SJSRowPosition =
         jsRowPos match
-            case RowPosition.Bottom => SJSRowPosition.Middle
+            case RowPosition.Bottom => SJSRowPosition.Bottom
             case RowPosition.Middle => SJSRowPosition.Middle
             case RowPosition.Top    => SJSRowPosition.Top
 
@@ -71,7 +71,7 @@ object RowBridge:
         val left = TileBridge.toJS(scala.left)
         val center = TileBridge.toJS(scala.center)
         val right = TileBridge.toJS(scala.right)
-        SJSRow(left, center, right)
+        SJSRow(left = left, center = center, right = right)
 
 object BoardBridge:
     import JSInterface.{Board as JSBoard}
