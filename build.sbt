@@ -1,5 +1,6 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import scala.scalanative.build._
+import scala.sys.process._
 
 ThisBuild / scalaVersion := "3.3.0"
 ThisBuild / organization := "io.github.chidirnweke"
@@ -31,7 +32,7 @@ lazy val tictactoe = crossProject(JSPlatform, JVMPlatform, NativePlatform)
 
           _.withModuleKind(ModuleKind.ESModule)
               .withModuleSplitStyle(
-                ModuleSplitStyle.SmallModulesFor(List("tictactoe"))
+                ModuleSplitStyle.SmallModulesFor(List("Tictactoe"))
               )
 
       },
