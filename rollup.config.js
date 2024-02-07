@@ -12,7 +12,7 @@ export default {
     },
     input: 'js/src/main/typescript/TictactoeBoard.ts',
     output: {
-        file: 'dist/tictactoeGame.js',
+        file: 'js/src/main/typescript/tictactoeGame.js',
         format: 'es'
     },
     plugins: [

@@ -20,6 +20,10 @@ a {
     display: inline;
     margin: 1rem;
     font-size: 1.2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 h1 {
