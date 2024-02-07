@@ -1,6 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import alias from '@rollup/plugin-alias';
+import typescript from '@rollup/plugin-typescript';
 import path from 'path';
 
 export default {
@@ -9,6 +10,11 @@ export default {
         file: 'js/src/main/typescript/game-logic.js',
         format: 'es',
     },
+    input: 'js/src/main/typescript/TictactoeBoard.ts',
+    output: {
+        file: 'dist/tictactoeGame.js',
+        format: 'es'
+    },
     plugins: [
         alias({
             entries: [
@@ -16,6 +22,7 @@ export default {
             ]
         }),
         resolve(),
-        terser()
+        terser(),
+        typescript()
     ]
 };
