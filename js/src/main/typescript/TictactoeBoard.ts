@@ -7,12 +7,13 @@ const html = /*html*/`
     margin: auto;
     background-color: var(--background-alt);
     color: var(--foreground-color);
-    display: inline-grid;
+    display: grid;
 }
 
 p {
     text-align: center;
-    color: var(--secondary-color)
+    font-weight: bold;
+    color: var(--secondary-color);
 }
 
 a {
@@ -49,14 +50,20 @@ button {
     color: var(--foreground-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
     font-size: clamp(0.5rem, 5vw, 5rem);
-    width: clamp(1rem, 10vw, 8rem);
-    height: clamp(1rem, 10vw, 8rem);
+    width: 100%;
+    height: 100%;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border-radius: 5px;
     display: block;
     justify-self: center;
+    aspect-ratio: 1;
+}
 
+button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
@@ -82,6 +89,8 @@ button:active {
         "middle-left middle-center middle-right"
         "bottom-left bottom-center bottom-right";
     margin: 1rem auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #tile-0-0 { grid-area: bottom-left; }
@@ -96,7 +105,7 @@ button:active {
 
 </style>
 <h1 class="status"></h1>
-<p><strong>Tictactoe, brought to you by scala.js</strong></p>
+<p><strong>Brought to you by scala.js</strong></p>
 <div class="game-board"></div>
 <a href="https://github.com/ChidiRnweke/scala-tictactoe">source</a>
 `
