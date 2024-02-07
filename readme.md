@@ -1,44 +1,47 @@
-# Tic Tac Toe in Scala
+# TicTacToe web Component
 
-Welcome to a simple implementation of the classic game, Tic Tac Toe, written in Scala 3.
+Introducing the TicTacToe game component: a unique blend of TypeScript and Scala.js. This custom web component encapsulates the core game logic, implemented in Scala.js. This core interfaces web components written interface for seamless integration into any web project. By including a single bundled file, you can embed this classic game into your site.
 
-## Overview
+## How to Use
 
-This project uses a functional object-oriented style. The emphasis is on immutability and minimizing side effects, which aligns well with functional programming principles. Side effects are allowed for printing and getting input from the user, but they are kept away from the logic. The "architecture" ensures a clear separation of business logic from I/O operations, making the core logic easily testable.
+Incorporating the TicTacToe game into your webpage is straightforward. Follow these two simple steps:
 
-**Project Structure:**
-- `Tictactoe.scala`: Contains the core game logic.
-- `main.scala`: Deals primarily with I/O operations to interact with the player.
+## Installation
 
-It's worth noting that only `Tictactoe.scala` has been unit-tested (using mUnit), as it encapsulates the business logic of the game.
+To integrate the TicTacToe game into your project simply add the jsDeliver link:
 
-## Getting Started
-
-### Prerequisites
-
-- Scala Version: 3.3.0
-- sbt (for building, running, and testing)
-
-### How to Play
-
-1. Clone the repository.
-2. Navigate to the project directory and run the game using sbt:
-    ```
-    sbt run
-    ```
-3. Follow the on-screen prompts to play the game:
-    - You'll be asked to choose a row (0, 1, or 2) and then a column (0, 1, or 2).
-    - Players take turns choosing positions on the board.
-    - The game ends when one player gets three in a row, column, or diagonal, or when all positions on the board are filled, resulting in a draw.
-
-## Tests
-
-The game comes equipped with unit tests to ensure its logic and functionality are accurate. To run the tests, use the following command:
-
-```
-sbt test
+```html
+<script src=https://cdn.jsdelivr.net/npm/scala-tictactoe></script>
 ```
 
-May the best player win!
+### Step 2: Add the Game Element
 
----
+Place the TicTacToe game element in your HTML at the desired location:
+
+```html
+<tictactoe-game></tictactoe-game>
+``` 
+and you're good to go!
+
+## Customization
+The game's appearance can be tailored to fit your site's aesthetics through CSS custom variables. Below are the variables you can override:
+
+* --background-alt: Background color of the game element.
+* --foreground-color: Color of the text and symbols (X and O).
+* --secondary-color: Color used for secondary text, such as instructions or information.
+* --accent-color: Color for borders and highlights.
+* --error-color: Color used to indicate errors or invalid moves.
+* --subtle-color: Hover background color for buttons.
+* --background-color: Button active state background color.
+
+Customize these properties within your CSS to match your design scheme.
+
+This project makes heavy use of the shadow DOM so the things above are the only way to style the *inside* of the component. You can style the outside out the component as normal.
+
+## Features
+Custom Web Component: Simplifies integration into any webpage.
+Fully Customizable: Styled through CSS variables for easy theming.
+
+
+## License
+This project is licensed under the MIT License. Feel free to use, modify, and distribute it in accordance with the license terms.
